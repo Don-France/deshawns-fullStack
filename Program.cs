@@ -117,6 +117,18 @@ app.MapGet("/api/dogs", () =>
     return dogs;
 });
 
+app.MapGet("/api/dogs/{id}", (int id) =>
+{
+    Dog dog = dogs.FirstOrDefault(d => d.Id == id);
+    if (dog == null)
+    {
+        return Results.NotFound();
+    }
+    dog.Walker = walkers.FirstOrDefault(w => w.Id == dog.WalkerId);
+    dog.City = cities.FirstOrDefault(c => c.Id == dog.CityId);
+    return Results.Ok(dog);
+});
+
 app.MapGet("/api/walkers", () =>
 {
     return walkers;
