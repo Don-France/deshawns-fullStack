@@ -19,7 +19,7 @@
 // }
 
 import React, { useEffect, useState } from "react";
-import { getGreeting, getDogList } from "./apiManager";
+import { getGreeting, getDogs } from "./apiManager";
 import { DogList } from "./DogList.js";
 
 export default function Home() {
@@ -36,7 +36,7 @@ export default function Home() {
         setGreeting(greetingResponse);
 
         // Fetch the list of dogs from your API
-        const dogListResponse = await getDogList();
+        const dogListResponse = await getDogs();
         setDogs(dogListResponse);
       } catch (error) {
         console.log("API not connected", error);

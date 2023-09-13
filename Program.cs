@@ -27,7 +27,7 @@ List<Dog> dogs = new List<Dog>
         Breed = "Whizzer",
         Age = 3,
         CityId = 2,
-        WalkerId=2
+        WalkerId=3
     },
     new Dog()
     {
@@ -35,7 +35,7 @@ List<Dog> dogs = new List<Dog>
         Name = "Macy",
         Breed = "Beagle",
         Age = 4,
-        CityId = 2,
+        CityId = 4,
 
     },
 
@@ -128,6 +128,14 @@ app.MapGet("/api/dogs/{id}", (int id) =>
     dog.City = cities.FirstOrDefault(c => c.Id == dog.CityId);
     return Results.Ok(dog);
 });
+
+app.MapPost("/api/dogs", (Dog dog) =>
+{
+    dog.Id = dogs.Count > 0 ? dogs.Max(d => d.Id) + 1 : 1;
+    dogs.Add(dog);
+    return dog;
+}
+);
 
 app.MapGet("/api/walkers", () =>
 {
